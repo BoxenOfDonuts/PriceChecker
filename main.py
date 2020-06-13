@@ -48,8 +48,12 @@ def main():
 
     try:
         for submission in reddit.subreddit('buildapcsales').stream.submissions():
-            if ('SN750' and 'TB') in submission.title and submission.id not in old_submission_ids or \
-                    ('970' and 'Samsung' and 'TB') in submission.title and submission.id not in old_submission_ids:
+            if submission.id in old_submission_ids:
+                logger.info('Old Submission Found')
+
+            elif all(x in submission.title for x in ['SN750','TB']) or \
+                    all(x in submission.title for x in ['970', 'Samsung','TB']):
+
                 logger.info('Matched Deal Found!',  extra={'matched': 'yes'})
                 message = "SSD Deal!\n" \
                           "{}\n" \
@@ -65,8 +69,6 @@ def main():
                     logger.info("Message Sent")
                 else:
                     logger.error("Message Not Sent")
-            elif submission.id in old_submission_ids:
-                logger.info('Old Submission Found')
             else:
                 logger.info('new post found, no matching criteria', extra={'matched': 'no'})
 
