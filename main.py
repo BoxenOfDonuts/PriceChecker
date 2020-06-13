@@ -10,6 +10,12 @@ config = configparser.ConfigParser(interpolation=None)
 configfile = os.path.join(os.path.dirname(__file__), 'config.ini')
 submission_txt = os.path.join(os.path.dirname(__file__), 'old_submissions.txt')
 
+sales_dict = {
+    'Samsung SSD': ['970', 'Samsung','TB'],
+    'Other SSD': ['SN750','TB'],
+    'PSU': ['SF600']
+}
+
 
 def praw_auth():
     config.read(configfile)
@@ -51,11 +57,10 @@ def main():
             if submission.id in old_submission_ids:
                 logger.info('Old Submission Found')
 
-            elif all(x in submission.title for x in ['SN750','TB']) or \
-                    all(x in submission.title for x in ['970', 'Samsung','TB']):
-
+            # custom any function that iterates over the sales_dict
+            elif any(submission.title):
                 logger.info('Matched Deal Found!',  extra={'matched': 'yes'})
-                message = "SSD Deal!\n" \
+                message = "Deal Found!\n" \
                           "{}\n" \
                           "{}".format(submission.title, submission.url)
 
@@ -78,6 +83,14 @@ def main():
     except prawcore.exceptions.RequestException as e:
         logger.error('request exception', extra={'error': e})
         time.sleep(10)
+
+
+def any(title):
+    # see https://docs.python.org/3/library/functions.html#any
+    for k, v in sales_dict.items():
+        if all(x in title for x in v):
+            return True
+    return False
 
 
 if __name__ == "__main__":
