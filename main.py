@@ -29,11 +29,17 @@ def praw_auth():
     return reddit
 
 
-def telegram_send(message):
+def telegram_send(title, url, permalink):
     bot_token = config['telegram']['token']
     bot_chatID = config['telegram']['chatID']
 
+    message = "Deal Found!\n" \
+              "{}\n" \
+              "[Sale URL]({})\n\n" \
+              "[Reddit Comments](reddit.com{})".format(title, url, permalink)
+
     send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&parse_mode=Markdown&text=' + message
+
     try:
         r = requests.get(send_text)
         r.raise_for_status()
@@ -60,11 +66,8 @@ def main():
             # custom any function that iterates over the sales_dict
             elif any(submission.title):
                 logger.info('Matched Deal Found!',  extra={'matched': 'yes'})
-                message = "Deal Found!\n" \
-                          "{}\n" \
-                          "{}".format(submission.title, submission.url)
 
-                response = telegram_send(message)
+                response = telegram_send(submission.title, submission.url, submission.permalink)
 
                 if response:
                     with open(submission_txt, 'a') as f:
