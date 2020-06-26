@@ -59,5 +59,4 @@ pipeline {
                parameters: [string(name: 'SERVICE_NAME', value: 'monitorpricecheck.service')]
          }
       }
-   }
 }
