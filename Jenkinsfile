@@ -14,8 +14,8 @@ pipeline {
               dir('/home/joel/Projects/python/PriceChecker/') {
                  checkout([$class: 'GitSCM', branches: [[name: '*/master']],
                          doGenerateSubmoduleConfigurations: false,
-                         extensions: [[$class: 'CleanBeforeCheckout']],
-                         extensions:[],
+                         //extensions: [[$class: 'CleanBeforeCheckout']],
+                         extensions:[], // renenber to comment out if you want to clean
                          submoduleCfg: [],
                          userRemoteConfigs: [[credentialsId: '2928710d-6644-4296-bb91-78716f269a3d',
                                               url: 'https://github.com/BoxenOfDonuts/PriceChecker']]])
@@ -50,7 +50,7 @@ pipeline {
                  pip install -r requirements.txt
                  """
               }
-              sh "cp ${CONFIG_FILE} /home/joel/Projects/python/test/"
+              sh "cp -f ${CONFIG_FILE} /home/joel/Projects/python/test/"
               //sh "cat /home/joel/Projects/python/test/config.ini"
          }
       }
