@@ -4,30 +4,20 @@ pipeline {
            label 'linuxVM'
        }
    }
-
-   stages {
-      stage('Checkout SCM') {
-         steps {
-            when { expression { return env.BRANCH_NAME == 'master'}  } // can you do after steps??
-            dir('/home/joel/Projects/python/test/') {
-               checkout([$class: 'GitSCM', branches: [[name: '*/master']],
-                         doGenerateSubmoduleConfigurations: false,
-                         //extensions: [[$class: 'CleanBeforeCheckout']],
-                         extensions:[],
-                         submoduleCfg: [],
-                         userRemoteConfigs: [[credentialsId: '2928710d-6644-4296-bb91-78716f269a3d',
-                                              url: 'https://github.com/BoxenOfDonuts/PriceChecker']]])
-         }
-            }
-      }
       stage('Deploy Prod') {
          when { expression { return env.BRANCH_NAME == 'master'}  }
          environment {
              CONFIG_FILE=credentials('price-checker-config')
           }
           steps {
-              echo 'Hello World'
               dir('/home/joel/Projects/python/PriceChecker/') {
+                 checkout([$class: 'GitSCM', branches: [[name: '*/master']],
+                         doGenerateSubmoduleConfigurations: false,
+                         //extensions: [[$class: 'CleanBeforeCheckout']],
+                         extensions:[],
+                         submoduleCfg: [],
+                         userRemoteConfigs: [[credentialsId: '2928710d-6644-4296-bb91-78716f269a3d',
+                                              url: 'https://github.com/BoxenOfDonuts/PriceChecker']]])
                  sh """
                  virtualenv venv
                  . venv/bin/activate
