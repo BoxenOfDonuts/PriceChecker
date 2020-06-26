@@ -8,6 +8,7 @@ pipeline {
    stages {
       stage('Checkout SCM') {
          steps {
+            when { expression { return env.BRANCH_NAME == 'master'}  } // can you do after steps??
             dir('/home/joel/Projects/python/test/') {
                checkout([$class: 'GitSCM', branches: [[name: '*/master']],
                          doGenerateSubmoduleConfigurations: false,
