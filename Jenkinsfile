@@ -23,7 +23,6 @@ pipeline {
                  virtualenv venv
                  . venv/bin/activate
                  pip install -r requirements.txt
-                 touch old_submissions.txt
                  """
               }
               sh "cp -f ${CONFIG_FILE} /home/joel/Projects/python/PriceChecker/"
