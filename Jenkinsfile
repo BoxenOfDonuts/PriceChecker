@@ -15,7 +15,7 @@ pipeline {
                          extensions:[],
                          submoduleCfg: [],
                          userRemoteConfigs: [[credentialsId: '2928710d-6644-4296-bb91-78716f269a3d',
-                                              url: 'https://github.com/BoxenOfDonuts/test-jenkins-2.git']]])
+                                              url: 'https://github.com/BoxenOfDonuts/PriceChecker']]])
          }
             }
       }
@@ -26,15 +26,15 @@ pipeline {
           }
           steps {
               echo 'Hello World'
-              dir('/home/joel/Projects/python/test/') {
+              dir('/home/joel/Projects/python/PriceChecker/') {
                  sh """
                  virtualenv venv
                  . venv/bin/activate
                  pip install -r requirements.txt
                  """
               }
-              sh "cp ${CONFIG_FILE} /home/joel/Projects/python/test/"
-              sh "cat /home/joel/Projects/python/test/config.ini"
+              sh "cp ${CONFIG_FILE} /home/joel/Projects/python/PriceChecker/"
+              //sh "cat /home/joel/Projects/python/PriceChecker/config.ini"
          }
       }
       stage('Restart Service') {
