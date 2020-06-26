@@ -38,6 +38,7 @@ pipeline {
          }
       }
       stage('Restart Service') {
+         when { expression { return env.BRANCH_NAME == 'master'}  }
          steps {
             build job: 'service restarter',
                parameters: [string(name: 'SERVICE_NAME', value: 'monitorpricecheck.service')]
