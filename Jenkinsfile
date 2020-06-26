@@ -14,7 +14,7 @@ pipeline {
               dir('/home/joel/Projects/python/PriceChecker/') {
                  checkout([$class: 'GitSCM', branches: [[name: '*/master']],
                          doGenerateSubmoduleConfigurations: false,
-                         //extensions: [[$class: 'CleanBeforeCheckout']],
+                         extensions: [[$class: 'CleanBeforeCheckout']],
                          extensions:[],
                          submoduleCfg: [],
                          userRemoteConfigs: [[credentialsId: '2928710d-6644-4296-bb91-78716f269a3d',
