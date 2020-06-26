@@ -26,7 +26,7 @@ pipeline {
                  touch old_submissions.txt
                  """
               }
-              sh "cp ${CONFIG_FILE} /home/joel/Projects/python/PriceChecker/"
+              sh "cp -f ${CONFIG_FILE} /home/joel/Projects/python/PriceChecker/"
               //sh "cat /home/joel/Projects/python/PriceChecker/config.ini"
          }
       }
