@@ -11,9 +11,11 @@ configfile = os.path.join(os.path.dirname(__file__), 'config.ini')
 submission_txt = os.path.join(os.path.dirname(__file__), 'old_submissions.txt')
 
 sales_dict = {
-    'Samsung SSD': ['970', 'Samsung','TB'],
-    'Other SSD': ['SN750','TB'],
-    'PSU': ['SF600']
+    #'Samsung SSD': ['970', 'Samsung','TB'],
+    #'Other SSD': ['SN750','TB'],
+    'PSU': ['SF600'],
+    'Gigabyte Mobo': ['Gigabyte','B450I'],
+    'ASUS Mobo': ['ASUS','450-I']
 }
 
 
