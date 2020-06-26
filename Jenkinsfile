@@ -4,6 +4,7 @@ pipeline {
            label 'linuxVM'
        }
    }
+   stages {
       stage('Deploy Prod') {
          when { expression { return env.BRANCH_NAME == 'master'}  }
          environment {
@@ -59,4 +60,5 @@ pipeline {
                parameters: [string(name: 'SERVICE_NAME', value: 'monitorpricecheck.service')]
          }
       }
+   }
 }
